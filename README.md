@@ -44,7 +44,7 @@ to Markdown and guesses the date when the content was created.
 It depends on two external services: [ChatGPT](https://chatgpt.com/) and [Jina](https://jina.ai/);
 in order to use them (and this function), you must provide their API Keys.
 
-```
+```javascript
 import { extractContent } from 'scrapino';
 
 const jinaAPIKey = '…';
@@ -58,12 +58,26 @@ const content = await extractContent({
   url: 'https://www.vsao-bern.ch/news/2022/05/05/review-2011-to-2021',
 });
 ```
+
+### Parameters
 The `extractContent` function takes the following parameters:
 - `content: string`: Original content that should be converted to Markdown; either HTML text or PDF content (Buffer)
 - `jinaAPIKey: string`: Well, the Jina API Key
 - `openAIAPIKey: string`: Your OpenAI API Key
 - `mimeType: 'text/html' | 'application/pdf'`: Your MIME type; only the HTML and PDF are supported
 - `url`: The URL where your content originated from
+
+### Return value
+The `extractContent` function returns a `Promise` that resolves:
+```json
+{
+  url: string;
+  originalContent: string;
+  markdownContent: string;
+  date: string | null;
+}
+```
+
 
 # Test
 `npx tsc && node --test`
