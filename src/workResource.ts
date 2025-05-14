@@ -16,10 +16,12 @@ export default async ({
   resource,
   handleSuccess,
   handleLinks,
+  logFunction,
 }: {
   resource: ResourceTableEntry,
   handleSuccess: (arg0: HandleSuccessParams) => void,
   handleLinks: (links: string[]) => void,
+  logFunction: (message: string) => void,
 }): Promise<void> => {
   const response = await fetchResource(resource.url);
   if (!response.ok) {
@@ -27,7 +29,7 @@ export default async ({
   }
 
   const mimeType: string = cleanMimeType(response.headers.get('content-type') || 'text/html');
-  console.log('Fetched %s, mimeType is %s', resource.url, mimeType);
+  logFunction(`Fetched ${resource.url}, mimeType is ${mimeType}`);
 
   const HandlerClasses = handlers.filter(
     (HandlerClass): boolean => HandlerClass.mimeTypes.includes(mimeType),

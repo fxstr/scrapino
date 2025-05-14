@@ -42,7 +42,9 @@ export default class Crawler {
 
   #handleLinks(links: string[]): void {
     links.forEach((link: string): void => {
-      if (!link.startsWith(this.#options.entryPointURL)) {
+      const meetsGuardrail = this.#options.guardrail
+        .some((guardrail): boolean => link.startsWith(guardrail));
+      if (!meetsGuardrail) {
         this.#options.logFunction(`Skipping link ${link}; does not start with ${this.#options.entryPointURL}`);
         return;
       }
@@ -75,12 +77,16 @@ export default class Crawler {
           resource,
           handleSuccess: this.#options.handleDocument,
           handleLinks: this.#handleLinks.bind(this),
+          logFunction: this.#options.logFunction,
         });
         // eslint-disable-next-line no-param-reassign
         resource.status = 'success';
       } catch (error) {
         // eslint-disable-next-line no-param-reassign
         resource.status = 'error';
+        if (error instanceof Error) {
+          error.message = `Could not fetch resource ${resource.url}: ${error.message}`;
+        }
         this.#options.handleError(error as Error);
       }
     });
