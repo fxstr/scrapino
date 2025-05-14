@@ -25,8 +25,8 @@ export default class Crawler {
   #options: CrawlerOptions;
 
   constructor(options: CrawlerParameterOptions) {
-    this.#resourceTable = new ResourceTable({ logFunction: options.logFunction });
     this.#options = { ...defaultOptions, ...options };
+    this.#resourceTable = new ResourceTable({ logFunction: this.#options.logFunction });
     // We do need a guardrail (without, infinity is near). If it's not set, default to the url
     // we use as an entryPoint.
     if (!this.#options.guardrail.length) {

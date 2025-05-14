@@ -68,6 +68,9 @@ The `extractContent` function takes the following parameters:
 # Test
 `npx tsc && node --test`
 
+# Publish
+`npx tsc` before you `npm publish`.
+
 # Some Features
 - Quite forgiving
 - Streams output (the handler is called whenever data becomes available)
