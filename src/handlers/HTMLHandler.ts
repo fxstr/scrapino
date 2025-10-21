@@ -39,8 +39,10 @@ const HTMLHandlerClass: HandlerConstructor = class HTMLHandler implements Handle
       {
         virtualConsole,
         url: this.#url,
-        // Include JS for SPA. We try to get as much content as possible.
-        runScripts: 'dangerously',
+        // JS would be nice for SPA; but: when scripts within a page fail, this package will fail
+        // as well and it's a potential security issue. As a default, don't run scripts, maybe
+        // one day provide an opt-in.
+        // runScripts: 'dangerously',
         pretendToBeVisual: true,
         resources: 'usable',
       },
