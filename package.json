@@ -5,8 +5,7 @@
   "types": "dist/index.d.ts",
   "type": "module",
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/.bin/jest",
-    "test:watch": "node --experimental-vm-modules node_modules/.bin/jest --watchAll"
+    "test": "npx tsc && node --test dist/*.test.js dist/**/*.test.js"
   },
   "author": "Felix Steiner <f@fxstr.com>",
   "license": "ISC",

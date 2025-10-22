@@ -80,7 +80,7 @@ The `extractContent` function returns a `Promise` that resolves:
 
 
 # Test
-`npx tsc && node --test`
+`npm test`
 
 # Publish
 `npx tsc` before you `npm publish`.
